@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <title>Gestionnaire Todo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #dde2e6;
+            padding: 50px;
+        }
+        #todo-container {
+            width: 60%; 
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: left;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            margin-top: 10px;
+            border-radius: 5px;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 20px;
+        }
+        li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            background: #f9f9f9;
+            border-radius: 5px;
+            margin-top: 5px;
+        }
+        .completed {
+            text-decoration: line-through;
+            color: gray;
+        }
+        button.complete {
+            background-color: green;
+        }
+        button.delete {
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="todo-container">
+        <label for="taskName">Name :</label>
+        <input type="text" id="taskName" placeholder="Enter task name">
+        
+        <label for="taskContent">Content :</label>
+        <textarea id="taskContent" placeholder="Enter task content"></textarea>
+        
+        <button onclick="addTask()">Add Todo</button>
+        
+        <ul id="taskList"></ul>
+    </div>
+
+    <script>
+        function addTask() {
+            let taskName = document.getElementById("taskName").value.trim();
+            let taskContent = document.getElementById("taskContent").value.trim();
+            if (taskName === "" || taskContent === "") return;
+            
+            let li = document.createElement("li");
+            li.innerHTML = `
+                <div>
+                    <strong>${taskName}</strong>
+                    <p>${taskContent}</p>
+                </div>
+                <div>
+                    <button class="complete" onclick="completeTask(this)">✓</button>
+                    <button class="delete" onclick="removeTask(this)">✗</button>
+                </div>
+            `;
+            document.getElementById("taskList").appendChild(li);
+            document.getElementById("taskName").value = "";
+            document.getElementById("taskContent").value = "";
+        }
+
+        function removeTask(button) {
+            button.parentElement.parentElement.remove();
+        }
+
+        function completeTask(button) {
+            button.parentElement.parentElement.classList.toggle("completed");
+        }
+    </script>
+</body>
+</html>
