@@ -1,0 +1,58 @@
+<script>
+function startGame() {
+    alert("Bienvenue dans le jeu ");
+    let difficulty = chooseDifficulty();
+    playGame(difficulty);
+}
+
+function chooseDifficulty() {
+    let difficulty;
+    do {
+        difficulty = prompt("Choisissez un niveau de difficulté : \n1. Facile (1-10, 5 essais)\n2. Intermédiaire (1-50, 7 essais)\n3. Difficile (1-100, 10 essais)");
+    } while (!["1", "2", "3"].includes(difficulty));
+
+    switch (difficulty) {
+        case "1": return { max: 10, attempts: 4 };
+        case "2": return { max: 50, attempts: 7 };
+        case "3": return { max: 100, attempts: 9 };
+    }
+}
+
+function playGame({ max, attempts }) {
+    let secretNumber = Math.floor(Math.random() * max) + 1;
+    let guess, remainingAttempts = attempts;
+
+    while (remainingAttempts > 0) {
+        guess = parseInt(prompt(`Devinez le nombre (entre 1 et ${max}) - Tentatives restantes : ${remainingAttempts}`));
+        
+        if (isNaN(guess) || guess < 1 || guess > max) {
+            alert("Veuillez entrer un nombre valide dans l'intervalle spécifié.");
+            continue;
+        }
+        
+        if (guess === secretNumber) {
+            alert("Félicitations ! Vous avez trouvé le nombre");
+            replay();
+            return;
+        } else if (guess < secretNumber) {
+            alert("Trop bas ! Essayez encore.");
+        } else {
+            alert("Trop haut ! Essayez encore.");
+        }
+        
+        remainingAttempts--;
+    }
+    
+    alert(`Dommage ! Le nombre secret était ${secretNumber}.`);
+    replay();
+}
+
+function replay() {
+    if (confirm("Voulez-vous rejouer ")) {
+        startGame();
+    } else {
+        alert("Merci d'avoir joué ! À bientôt.");
+    }
+}
+startGame();
+</script>

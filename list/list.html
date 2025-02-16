@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Liste Interactive</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        ol {
+            list-style-type: decimal;
+            padding: 0;
+            width: 50%;
+            margin: auto;
+        }
+        li {
+            padding: 10px;
+            margin: 5px 0;
+            background: white;
+            border: 1px solid #ccc;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Liste Interactive</h2>
+    <p>Clique sur un élément pour changer sa couleur.</p>
+
+    <ol id="colorList">
+        <li>Élément 1</li>
+        <li>Élément 2</li>
+        <li>Élément 3</li>
+        <li>Élément 4</li>
+        <li>Élément 5</li>
+    </ol>
+
+    <script>
+        function getRandomColor() {
+            return '#' + Math.floor(Math.random()*16777215).toString(16);
+        }
+
+        document.querySelectorAll("#colorList li").forEach(item => {
+            item.addEventListener("click", function() {
+                this.style.backgroundColor = getRandomColor();
+            });
+        });
+    </script>
+
+</body>
+</html>
+
